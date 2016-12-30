@@ -36,6 +36,7 @@ class ConvView extends JFrame{
         m_outputTf.setEditable(false);
 
         //initialize view
+        //// TODO: 2016-12-31 make window more beautiful
         JPanel content = new JPanel();
         JPanel left = new JPanel();
         JPanel right = new JPanel();
