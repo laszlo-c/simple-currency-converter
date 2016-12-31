@@ -22,7 +22,7 @@ class ConvView extends JFrame{
     private JLabel m_rateLb          = new JLabel();
 
     /**
-     * Constructor
+     * Constructor for view
      * @param model model to base constructor on
      */
     ConvView(ConvModel model){
@@ -36,55 +36,114 @@ class ConvView extends JFrame{
         m_outputTf.setEditable(false);
 
         //initialize view
-        //// TODO: 2016-12-31 make window more beautiful
+
+        //content panel
         JPanel content = new JPanel();
+
+        //container panel for textLabel
+        JPanel top = new JPanel();
+
+        //input comboBox container
         JPanel left = new JPanel();
+
+        //output comboBox container
         JPanel right = new JPanel();
+
+        //container panel for input textField, convert button and output textField
         JPanel center = new JPanel();
+
+        //panel that contains the interactive objects
         JPanel converter = new JPanel();
+
+        //convert button container
+        JPanel convertButtonPanel = new JPanel();
+
+        //set view
         left.setLayout(new FlowLayout());
         right.setLayout(new FlowLayout());
         center.setLayout(new BoxLayout(center, BoxLayout.PAGE_AXIS));
-        content.add(m_rateLb);
+        top.add(m_rateLb);
         left.add(m_inputCb);
         right.add(m_outputCb);
         center.add(m_userInputTf);
-        center.add(m_convertBt);
+        convertButtonPanel.add(m_convertBt);
+        center.add(convertButtonPanel);
         center.add(m_outputTf);
+        content.add(top);
         converter.setLayout(new FlowLayout());
         content.setLayout(new BoxLayout(content, BoxLayout.PAGE_AXIS));
         converter.add(left);
         converter.add(center);
         converter.add(right);
         content.add(converter);
-        m_rateLb.setText(String.format("1 %s = 1 %s", getSelectedInput(), getSelectedOutput()));
+        m_rateLb.setText(String.format("1.000 %s = 1.000 %s", getSelectedInput(), getSelectedOutput()));
         m_rateLb.setVerticalAlignment(SwingConstants.CENTER);
 
         this.setContentPane(content);
         this.pack();
 
+        //title and close operation
         this.setTitle("Currency converter");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
     }
 
-
+    /**
+     * Gets the amount of currency to convert
+     * @return the amount to be converted
+     */
     String getUserInput(){return m_userInputTf.getText();}
 
+    /**
+     * Gets the currency to convert from
+     * @return the input currency
+     */
     String getSelectedInput(){return m_inputCb.getSelectedItem().toString();}
 
+    /**
+     * Gets the currency to convert to
+     * @return the output currency
+     */
     String getSelectedOutput(){return m_outputCb.getSelectedItem().toString();}
 
-    void setOutput(double newOutput){ m_outputTf.setText(String.format("%.2f", newOutput));}
+    /**
+     * Sets the text of the output textfield to the new value
+     * @param newOutput the output amount to display
+     */
+    void setOutput(double newOutput){ m_outputTf.setText(String.format("%.3f", newOutput));}
 
-    void setConversionLabel(String input, String output){m_rateLb.setText(String.format("1 %s = %.3f %s", input, m_model.getConversionRate(), output));}
+    /**
+     * Sets the text of the topmost label to display the current exchange rate
+     * @param input currency to convert from
+     * @param output currency to convert to
+     */
+    void setConversionLabel(String input, String output){m_rateLb.setText(String.format("1.000 %s = %.3f %s", input, m_model.getConversionRate(), output));}
 
-    void addInputListener(ActionListener inal){m_inputCb.addActionListener(inal);}
+    /**
+     * Adds action listener to the input comboBox
+     * @param inAL input action listener
+     */
+    void addInputListener(ActionListener inAL){m_inputCb.addActionListener(inAL);}
 
-    void addOutputListener(ActionListener outal){m_outputCb.addActionListener(outal);}
+    /**
+     * Adds action listener to the output comboBox
+     * @param outAL output action listener
+     */
+    void addOutputListener(ActionListener outAL){m_outputCb.addActionListener(outAL);}
 
-    void addConvertListener(ActionListener cal ){m_convertBt.addActionListener(cal);}
+    /**
+     * Adds action listeners to the convert button and the input text field
+     * @param cal convert action listener
+     */
+    void addConvertListener(ActionListener cal ){
+        m_convertBt.addActionListener(cal);
+        m_userInputTf.addActionListener(cal);
+    }
 
+    /**
+     * Shows dialog box with error message when called
+     * @param message message to display
+     */
     void showError(String message){JOptionPane.showMessageDialog(this, message);}
 
 

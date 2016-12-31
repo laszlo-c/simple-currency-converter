@@ -26,7 +26,7 @@ import java.io.IOException;
     }
 
     /**
-     * Inner class of event listener for the combo boxes
+     * Inner class of event listener for both combo boxes
      */
     private class InputOutputListener implements ActionListener{
         @Override

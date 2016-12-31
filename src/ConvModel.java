@@ -10,9 +10,9 @@ import java.io.IOException;
     private static final double EUR_TO_USD = 1.04;
     private static final double EUR_TO_RON = 4.54;
     private static final double USD_TO_RON = 4.37;
-    private static final double INITIAL_VALUE = 0;
+    private static final double INITIAL_VALUE = 1.0;
 
-    private double m_conversionRate;
+    private double m_conversionRate = 1.0;
     private double m_converted;
 
     ConvModel(){reset();}
