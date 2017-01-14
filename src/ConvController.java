@@ -53,6 +53,9 @@ import java.io.IOException;
             double input;
             try {
                 input = Double.parseDouble(m_view.getUserInput());
+                if (input < 0){
+                    throw new NumberFormatException();
+                }
                 m_model.convert(input);
                 m_view.setOutput(m_model.getOutput());
             }
